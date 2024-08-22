@@ -7,18 +7,19 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct GameView: View {
     
-    let question = Game.question
+    let question = Question.allQuestions[1]
     
-    @State var mainColor = Color(red: 20/255, green: 28/255, blue: 58/255)
-    let accentColor = Color(red: 48/255, green: 105/255, blue: 240/255)
+    
+    @State var screenColor = Color(red: 20/255, green: 28/255, blue: 58/255)
+    
     
     var body: some View {
         ZStack {
-            mainColor.ignoresSafeArea()
+            screenColor.ignoresSafeArea()
             VStack {
-                Text("1 / 10")
+                Text("1 / 5")
                     .font(.callout)
                     .multilineTextAlignment(.leading)
                     .padding()
@@ -30,10 +31,11 @@ struct ContentView: View {
                 HStack {
                     ForEach(0..<question.possibleAnswers.count) { answerIndex in
                         Button(action: {
-                            print("Tapped on option with the text: \(question.possibleAnswers[answerIndex])")
                             
-                            // The line below should be the last thing learners add in this article
-                            mainColor = answerIndex == question.correctAnswerIndex ? .green : .red
+                            print("Guessed Index is \(answerIndex) and the answer is \(question.correctAnswerIndex)")
+                             //The line below should be the last thing learners add in this article
+                            screenColor = answerIndex == question.correctAnswerIndex ? GameColor.correctGuess : GameColor.incorrectGuess
+                            
                         }) {
                             ChoiceTextView(choiceText: question.possibleAnswers[answerIndex])
                         }
@@ -48,6 +50,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        GameView()
     }
 }
