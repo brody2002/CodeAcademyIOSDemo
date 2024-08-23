@@ -43,6 +43,7 @@ class GameViewModel: ObservableObject {
     var gameIsOver: Bool {
       game.isOver
     }
+    
     // MARK: - Internal Methods
     
     func makeGuess(atIndex index: Int) {
@@ -66,6 +67,8 @@ class GameViewModel: ObservableObject {
             return GameColor.mainColor
         }
     }
+    
+    
 }
 
 #Preview {
