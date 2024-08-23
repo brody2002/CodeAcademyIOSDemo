@@ -13,7 +13,6 @@ import SwiftUI
 
 struct ChoiceTextView: View {
     let choiceText: String
-    
 
     var body: some View {
         Text(choiceText)

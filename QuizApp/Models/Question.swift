@@ -21,7 +21,7 @@ struct Question: Hashable {
                     "Micheal Jordan",
                     "Timofey Mozgov"
                  ],
-                 correctAnswerIndex: 3),
+                 correctAnswerIndex: 1),
         Question(questionText: "What's my dogs name?",
                  possibleAnswers: [
                     "Rex",

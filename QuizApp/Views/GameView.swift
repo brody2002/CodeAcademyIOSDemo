@@ -8,42 +8,31 @@
 import SwiftUI
 
 struct GameView: View {
-    
-    let question = Question.allQuestions[1]
-    
-    
-    @State var screenColor = Color(red: 20/255, green: 28/255, blue: 58/255)
-    
+    @StateObject var viewModel = GameViewModel()
     
     var body: some View {
         ZStack {
-            screenColor.ignoresSafeArea()
+            GameColor.mainColor.ignoresSafeArea()
             VStack {
-                Text("1 / 5")
+                Text(viewModel.questionProgressText)
                     .font(.callout)
                     .multilineTextAlignment(.leading)
                     .padding()
-                Text(question.questionText)
-                    .font(.largeTitle)
-                    .bold()
-                    .multilineTextAlignment(.leading)
-                Spacer()
-                HStack {
-                    ForEach(0..<question.possibleAnswers.count) { answerIndex in
-                        Button(action: {
-                            
-                            print("Guessed Index is \(answerIndex) and the answer is \(question.correctAnswerIndex)")
-                             //The line below should be the last thing learners add in this article
-                            screenColor = answerIndex == question.correctAnswerIndex ? GameColor.correctGuess : GameColor.incorrectGuess
-                            
-                        }) {
-                            ChoiceTextView(choiceText: question.possibleAnswers[answerIndex])
-                        }
-                    }
-                }
+                QuestionView(question: viewModel.currentQuestion)
             }
+            .foregroundColor(.white)
+            .navigationBarHidden(true)
+            .environmentObject(viewModel)
         }
-        .foregroundColor(.white)
+//        .background(
+//            NavigationLink(destination: ScoreView(viewModel: ScoreViewModel(correctGuesses: viewModel.correctGuesses,
+//                                                                            incorrectGuesses: viewModel.incorrectGuesses)),
+//                           isActive: .constant(viewModel.gameIsOver),
+//                           label: { EmptyView() })
+//        )
+        .background(NavigationLink(destination: Text("Game over"),
+                                   isActive: .constant(viewModel.gameIsOver), label: {EmptyView()})
+                    )
     }
 }
 
